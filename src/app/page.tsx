@@ -33,7 +33,7 @@ export default function Home() {
             boards.map(board => (
               <li key={board.id}>
                   <Link 
-                    href={`/${board.id}`} 
+                    href={`/board/${board.id}`} 
                     className='block p-4  rounded-lg hover:bg-gray-200 transition'
                   >
                     <span className='font-bold hover:text-red-500'>/{board.id}</span> - {board.name}

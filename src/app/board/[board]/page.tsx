@@ -31,12 +31,22 @@ export default function BoardPage() {
 
       {threads.length === 0 && <p>No hay hilos aún</p>}
 
+      <div className="mb-6 flex justify-between items-center">
+        <Link 
+          href={`/board/${board}/new`}
+          className="text-[var(--link)] underline"
+        >
+          Crear nuevo hilo
+        </Link>
+      </div>
+     
+
       <ul className="space-y-3">
         {threads.map((t) => (
-          <li key={t.id} className="p-4 bg-gray-100 rounded hover:bg-gray-200 transition">
-            <Link href={`/${board}/${t.id}`}>
+          <li key={t.id} className="border border-[var(--border)] bg-[var(--post-bg)] p-3 rounded">
+            <Link href={`/board/${board}/${t.id}`} className="text-lg font-semibold text-[var(--link)]">
               <h2 className="font-bold">{t.title}</h2>
-              <p className="text-sm text-gray-600">{t.content}</p>
+              <p className="text-sm text-gray-700 line-clamp-2">{t.content}</p>
             </Link>
           </li>
         ))}
