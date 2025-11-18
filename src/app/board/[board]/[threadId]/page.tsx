@@ -40,6 +40,15 @@ export default function ThreadPage({ params }: any) {
   return (
     <div className="border border-[var(--border)] bg-[var(--post-bg)] p-4 rounded mb-6">
       <h1 className="font-bold text-xl mb-1">{thread.title}</h1>
+
+      {
+        thread.imageUrl && (
+          <img
+            src={`${process.env.NEXT_PUBLIC_API_URL}${thread.imageUrl}`}
+            className="mb-4 max-w-xs border"
+          />
+        )
+      }
       
       <p  className="mt-3 whitespace-pre-line">{thread.content}</p>
 

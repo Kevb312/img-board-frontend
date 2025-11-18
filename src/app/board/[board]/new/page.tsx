@@ -13,18 +13,31 @@ export default function NewThread() {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const thread = await api.post("/threads", {
-      title,
-      content,
-      boardId: board,
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("boardId", board);
+
+    if (file) {
+      formData.append("image", file); // El nombre tiene que coincidir con FilesInterceptor('image')
+    }
+
+    const thread = await api.postForm("/threads", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
 
     router.push(`/board/${board}/${thread.id}`);
-  }
+}
+
 
   return (
     <div className="p-6">
@@ -49,6 +62,8 @@ export default function NewThread() {
           onChange={(e) => setContent(e.target.value)}
           required
         />
+
+        <input type="file" accept="image/*"  onChange={(e) => setFile(e.target.files?.[0] || null)} className="border p-2 rounded w-full" />
 
         <button
           type="submit"

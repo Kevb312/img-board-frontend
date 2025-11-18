@@ -48,4 +48,14 @@ export const api = {
     if (!res.ok) throw new Error(`DELETE ${path} failed`);
     return res.json() as Promise<T>;
   },
+
+    async postForm<T = any>(path: string, formData: FormData, p0: { headers: { "Content-Type": string; }; }) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) throw new Error(`POST ${path} failed`);
+    return res.json() as Promise<T>;
+  },
 };
